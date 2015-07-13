@@ -11,22 +11,35 @@ Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-github-dashboard'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'kchmck/vim-coffee-script'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'vimoutliner/vimoutliner'
 Plug 'pangloss/vim-javascript'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'wakatime/vim-wakatime'
 
+" Finish installation of plugins
 call plug#end()
 
 " Set look and feel
+filetype plugin indent on
 syntax enable
 set background=dark
+set number
 colorscheme solarized
 "let g:solarized_termcolors=256
 let laststatus=2
 let g:airline_powerline_fonts=1
+set autochdir
+set encoding=utf-8
+set nowrap
+
+" Save and load views automatically
+autocmd BufWinLeave *.* mkview
+autocmd BufWinEnter *.* silent loadview
 
 " Hide tool/menu bars in GVim
 set guioptions-=m  " Remove menu bar
@@ -38,3 +51,6 @@ set guioptions-=L  " Remove left-hand scroll bar
 set backupdir=~/.vim/.backup//
 set directory=~/.vim/.swp//
 set undodir=~/.vim/.undo//
+
+" Text hygene
+set nobomb

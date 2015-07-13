@@ -5,6 +5,7 @@ base_directory=$HOME/dotfiles
 dot_directory=$base_directory/dot
 backup_directory=$HOME/dotfiles.backup
 vim_directory=$HOME/.vim 
+vim_ftplugin_directory=$vim_directory/after/ftplugin
 
 # Install plug.vim
 if [ -f "$vim_directory/autoload/plug.vim" ]; then
@@ -23,6 +24,21 @@ do
     fi
 done
 
+if [ ! -d "$vim_ftplugin_directory/$directory" ]; then
+    mkdir $vim_ftplugin_directory/$directory
+    echo "Created $vim_ftplugin_directory/$directory"
+fi
+
+# Generate vim ftplugin files
+for filetype in html js php
+do
+    echo "setlocal shiftwidth=4\nsetlocal tabstop=4\nsetlocal noexpandtab" >> $vim_ftplugin_directory/$filetype.vim
+done
+
+for filetype in python
+do
+    echo "setlocal shiftwidth=4\nsetlocal tabstop=4\nsetlocal noexpandtab" >> $vim_ftplugin_directory/$filetype.vim
+done
 # Install Oh My ZSH!
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 
