@@ -24,20 +24,20 @@ do
     fi
 done
 
-if [ ! -d "$vim_ftplugin_directory/$directory" ]; then
-    mkdir $vim_ftplugin_directory/$directory
-    echo "Created $vim_ftplugin_directory/$directory"
+if [ ! -d "$vim_ftplugin_directory" ]; then
+    mkdir -p $vim_ftplugin_directory
+    echo "Created $vim_ftplugin_directory"
 fi
 
 # Generate vim ftplugin files
 for filetype in html js php
 do
-    echo "setlocal shiftwidth=4\nsetlocal tabstop=4\nsetlocal noexpandtab" >> $vim_ftplugin_directory/$filetype.vim
+    echo "setlocal shiftwidth=4 tabstop=4 noexpandtab" >> $vim_ftplugin_directory/$filetype.vim
 done
 
 for filetype in python
 do
-    echo "setlocal shiftwidth=4\nsetlocal tabstop=4\nsetlocal noexpandtab" >> $vim_ftplugin_directory/$filetype.vim
+    echo "setlocal shiftwidth=4 tabstop=4 noexpandtab" >> $vim_ftplugin_directory/$filetype.vim
 done
 # Install Oh My ZSH!
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh

@@ -34,8 +34,6 @@ colorscheme solarized
 let laststatus=2
 let g:airline_powerline_fonts=1
 set autochdir
-set encoding=utf-8
-set nowrap
 
 " Save and load views automatically
 autocmd BufWinLeave *.* mkview
@@ -54,3 +52,10 @@ set undodir=~/.vim/.undo//
 
 " Text hygene
 set nobomb
+set list listchars=tab:→\ ,trail:·,extends:#,nbsp:·,
+set encoding=utf-8
+set nowrap
+set shiftwidth=2
+set expandtab
+set tabstop=2
+set softtabstop=2
