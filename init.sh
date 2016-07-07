@@ -64,3 +64,8 @@ do
     	echo "Linked ./dot/$filename to ~/.$filename"
     fi
 done
+
+# Install powerline fonts for ZSH, Vim
+git clone https://github.com/powerline/fonts.git $HOME/fonts
+chmod +x $HOME/fonts/install.sh
+$HOME/fonts/install.sh
