@@ -41,6 +41,7 @@ do
 done
 # Install Oh My ZSH!
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
+chmod +x $HOME/.oh-my-zsh/oh-my-zsh.sh
 
 # Install everything in the dot directory
 for file in $dot_directory/*
