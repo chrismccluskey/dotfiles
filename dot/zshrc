@@ -91,3 +91,5 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+
+alias lockup='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
