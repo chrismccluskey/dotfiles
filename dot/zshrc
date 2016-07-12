@@ -93,3 +93,6 @@ export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 export PATH="/usr/local/heroku/bin:$PATH"
 
 alias lockup='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Resources/CGSession -suspend'
+
+### DT Workflow Scripts
+export PATH="$HOME/dev-tools/src/websites/www.digitaltrends.com/scripts/workflow:$PATH"
