@@ -39,6 +39,7 @@ for filetype in python
 do
     echo "setlocal shiftwidth=4 tabstop=4 noexpandtab" >> $vim_ftplugin_directory/$filetype.vim
 done
+
 # Install Oh My ZSH!
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 chmod +x $HOME/.oh-my-zsh/oh-my-zsh.sh
@@ -49,19 +50,21 @@ do
     filename=$(basename $file)
     if [[ "$filename" != "$(basename $0)" ]]; then
 
-	# Backup file if one already exists
-	if [ -f "$HOME/.$filename" ]; then
+        # Backup file if one already exists
+        if [ -f "$HOME/.$filename" ]; then
 
             # Make directory for backups if one doesn't exist
             if [ ! -d "$backup_directory" ]; then
                 mkdir -p $backup_directory
             fi
 
-	    # Backup existing file
-	    mv $HOME/.$filename $backup_directory/
-	fi
-	ln -s $dot_directory/$filename $HOME/.$filename
-    	echo "Linked ./dot/$filename to ~/.$filename"
+        # Backup existing file
+        mv $HOME/.$filename $backup_directory/
+
+    fi
+
+    ln -s $dot_directory/$filename $HOME/.$filename
+        echo "Linked ./dot/$filename to ~/.$filename"
     fi
 done
 
