@@ -96,3 +96,5 @@ alias lockup='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Reso
 
 ### DT Workflow Scripts
 export PATH="$HOME/scripts/workflow:$PATH"
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
