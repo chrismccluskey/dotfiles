@@ -20,13 +20,14 @@ Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'wakatime/vim-wakatime'
+Plug 'godlygeek/tabular'
 
 " Finish installation of plugins
 call plug#end()
 
 " Set look and feel
 filetype plugin indent on
-syntax enable
+syntax on
 set background=dark
 set number
 colorscheme solarized
