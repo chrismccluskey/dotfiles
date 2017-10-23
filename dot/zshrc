@@ -50,7 +50,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git celery docker github git golang heroku grunt jsontools lol nyan nvm npm phing pip vi-mode vim-interaction vagrant ubuntu z)
+plugins=(git celery docker github git golang heroku grunt jsontools lol nyan nvm npm phing pip vi-mode vim-interaction vagrant z wd)
 
 # User configuration
 
@@ -96,11 +96,14 @@ alias lockup='/System/Library/CoreServices/"Menu Extras"/User.menu/Contents/Reso
 alias vu="vagrant up"
 alias vs="vagrant ssh"
 alias vuvs="vagrant up && vagrant ssh"
+alias vh="vagrant halt"
 alias chrome='/Applications/"Google Chrome.app"/Contents/MacOS/"Google Chrome"'
-alias dts="cd $HOME/dev-tools && mvim &> /dev/null & chrome &> /dev/null & vuvs"
+alias dts="cd $HOME/dev-tools && mvim &> /dev/null && $HOME/ws.sh &> /dev/null && chrome &> /dev/null & vuvs"
 
 ### DT Workflow Scripts
 export PATH="$HOME/scripts/workflow:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="$HOME/Library/Python/2.7/bin:$PATH" # aws eb tools
+
+export GOPATH="$HOME/Projects/go" # golang tools

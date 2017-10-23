@@ -21,9 +21,28 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-markdown'
 Plug 'wakatime/vim-wakatime'
 Plug 'godlygeek/tabular'
+Plug 'tomtom/tcomment_vim'
+Plug 'rking/ag.vim'
+Plug 'othree/vim-autocomplpop'
+Plug 'StanAngeloff/php.vim'
+Plug 'shawncplus/phpcomplete.vim'
+" Plug 'johngrib/vim-game-code-break'
 
-" Finish installation of plugins
+" Finish installation of Plug plugins
 call plug#end()
+
+" Install vundle for plugins that don't work with Plug.
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+" Install the plugins that don't work with Plug.
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'dsawardekar/wordpress.vim'
+
+" Finish installation of Vundle plugins
+call vundle#end()
 
 " Set look and feel
 filetype plugin indent on
