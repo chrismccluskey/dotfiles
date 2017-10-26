@@ -98,7 +98,7 @@ alias vs="vagrant ssh"
 alias vuvs="vagrant up && vagrant ssh"
 alias vh="vagrant halt"
 alias chrome='/Applications/"Google Chrome.app"/Contents/MacOS/"Google Chrome"'
-alias dts="cd $HOME/dev-tools && mvim &> /dev/null && $HOME/ws.sh &> /dev/null && chrome &> /dev/null & vuvs"
+alias dts="cd $HOME/dev-tools && mvim &> /dev/null && $HOME/ws.sh &> /dev/null & vu"
 
 ### DT Workflow Scripts
 export PATH="$HOME/scripts/workflow:$PATH"
