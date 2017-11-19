@@ -86,7 +86,7 @@ source $ZSH/oh-my-zsh.sh
 alias xampp='sudo /opt/lampp/manager-linux-x64.run'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export GOPATH=$HOME/code/go
+export GOPATH=$HOME/go-code
 export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
 
 ### Added by the Heroku Toolbelt
@@ -106,4 +106,4 @@ export PATH="$HOME/scripts/workflow:$PATH"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="$HOME/Library/Python/2.7/bin:$PATH" # aws eb tools
 
-export GOPATH="$HOME/Projects/go" # golang tools
+ssh-add

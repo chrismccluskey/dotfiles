@@ -4,11 +4,11 @@ call plug#begin('~/.vim/plugged')
 " Install vim plugins via plug
 Plug 'junegunn/goyo.vim'
 Plug 'junegunn/limelight.vim'
-Plug 'altercation/vim-colors-solarized'
+" Plug 'altercation/vim-colors-solarized'
 Plug 'airblade/vim-gitgutter'
 Plug 'bling/vim-airline'
 Plug 'edkolev/promptline.vim'
-" Plug 'fatih/vim-go'
+Plug 'fatih/vim-go'
 Plug 'junegunn/vim-easy-align'
 Plug 'junegunn/vim-github-dashboard'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
@@ -16,7 +16,7 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'vimoutliner/vimoutliner'
 Plug 'pangloss/vim-javascript'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'scrooloose/syntastic'
 Plug 'tpope/vim-fugitive'
@@ -26,8 +26,14 @@ Plug 'godlygeek/tabular'
 Plug 'tomtom/tcomment_vim'
 Plug 'rking/ag.vim'
 Plug 'othree/vim-autocomplpop'
-Plug 'StanAngeloff/php.vim'
+" Plug 'StanAngeloff/php.vim'
 Plug 'shawncplus/phpcomplete.vim'
+
+" Color schemes
+Plug 'nightsense/office'
+Plug 'archSeer/colibri.vim'
+
+" Games
 " Plug 'johngrib/vim-game-code-break'
 
 " Finish installation of Plug plugins
@@ -51,15 +57,16 @@ filetype plugin indent on
 syntax on
 set background=dark
 set number
-colorscheme solarized
+colorscheme office-dark
+"colorscheme colibri
 "let g:solarized_termcolors=256
 let laststatus=2
 let g:airline_powerline_fonts=1
 set autochdir
 
 " Save and load views automatically
-autocmd BufWinLeave *.* mkview
-autocmd BufWinEnter *.* silent loadview
+autocmd BufWinLeave ?* mkview 1
+autocmd BufWinEnter ?* silent loadview 1
 
 " Hide tool/menu bars in GVim
 set guioptions-=m  " Remove menu bar
@@ -77,7 +84,14 @@ set nobomb
 set list listchars=tab:→\ ,trail:·,extends:#,nbsp:·,
 set encoding=utf-8
 set nowrap
-set shiftwidth=2
-set expandtab
-set tabstop=2
-set softtabstop=2
+
+set noexpandtab " Make sure that every file uses real tabs, not spaces
+set shiftround  " Round indent to multiple of 'shiftwidth'
+set smartindent " Do smart indenting when starting a new line
+set autoindent  " Copy indent from current line, over to the new line
+
+" Set the tab width
+let s:tabwidth=4
+exec 'set tabstop='    .s:tabwidth
+exec 'set shiftwidth=' .s:tabwidth
+exec 'set softtabstop='.s:tabwidth
