@@ -50,7 +50,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git celery docker github git golang heroku grunt jsontools lol nyan nvm npm phing pip vi-mode vim-interaction vagrant z wd)
+plugins=(git celery docker github git golang heroku grunt jsontools lol nyan nvm npm phing pip vi-mode vim-interaction vagrant z wd jira nmap colorize)
 
 # User configuration
 
@@ -87,7 +87,7 @@ alias xampp='sudo /opt/lampp/manager-linux-x64.run'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export GOPATH=$HOME/go-code
-export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/Downloads
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
@@ -105,5 +105,10 @@ export PATH="$HOME/scripts/workflow:$PATH"
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH="$HOME/Library/Python/2.7/bin:$PATH" # aws eb tools
+source $HOME/developer/bash_functions
+
+export JIRA_URL="https://digitaltrends.atlassian.net"
 
 ssh-add
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

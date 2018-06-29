@@ -28,6 +28,7 @@ Plug 'rking/ag.vim'
 Plug 'othree/vim-autocomplpop'
 " Plug 'StanAngeloff/php.vim'
 Plug 'shawncplus/phpcomplete.vim'
+Plug 'tpope/vim-db'
 
 " Color schemes
 Plug 'nightsense/office'
