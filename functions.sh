@@ -27,7 +27,11 @@ create_symlink () {
             mkdir -pv $link_name_directory
 			log_mkdir=" created parent directories and"
         fi
-        ln -sv -T $target $link_name
+	if [[ "$OSTYPE" == "darwin"* ]]; then
+		ln -sv $target $link_name
+	elif [[ "$OSTYPE" == "linux-gnu" ]]; then
+		ln -sv -T $target $link_name
+	fi
     fi
 }
 
