@@ -9,75 +9,68 @@ start_message () {
 	echo ""
 }
 
-run_suporting_file () {
+run_supporting_file () {
 	chmod +x $SUPPORTING_FILES_DIRECTORY/$1
 	$SUPPORTING_FILES_DIRECTORY/$1
 }
 
-install_dotfile () {
-    source="$DOTFILES_ROOT/$1"
-
-    if [ "x$2" != "x" ]; then
-        target="$HOME/.$2"
-    else
-        target="$HOME/.$1"
-    fi
-	log_prefix=" . [ $source --> $target ] : "
-
-    if test -f "$target"; then
+create_symlink () {
+	target=$1
+	link_name=$2
+	log_prefix=" . [ $link_name -> symlink to existing target -> $target ] : "
+    if test -f "$link_name"; then
 		echo "$log_prefix skipped (present)"
     else
-        target_directory=$( dirname ${target} )
-        if [ -d "$target_directory" ]; then
-            mkdir -p $target_directory
+        link_name_directory=$( dirname ${link_name} )
+		echo "link name dir $link_name_directory";
+        if [ ! -d "$link_name_directory" ]; then
+            mkdir -pv $link_name_directory
 			log_mkdir=" created parent directories and"
         fi
-        if ln -s $source $target; then
-			echo "$log_prefix $log_mkdir linked"
-		else
-			echo "$log_prefix $log_mkdir FAILED to link"
-		fi
+        ln -sv -T $target $link_name
     fi
+}
+
+install_dotfile () {
+    target="$DOTFILES_ROOT/$1"
+
+    if [ "x$2" != "x" ]; then
+        link_name="$HOME/.$2"
+    else
+        link_name="$HOME/.$1"
+    fi
+
+    create_symlink $target $link_name
 }
 
 link_supporting_file () {
-    source="$SUPPORTING_FILES_DIRECTORY/$1"
-    target="$HOME/$1"
-	log_prefix=" s [ $source --> $target ] : "
-
-    if test -f "$target"; then
-		echo "$log_prefix skipped (present)"
-    else
-        target_directory=$( dirname ${target} )
-        if [ -d "$target_directory" ]; then
-            mkdir -p $target_directory
-			log_mkdir=" created parent directories and"
-        fi
-        if ln -s $source $target; then
-			echo "$log_prefix $log_mkdir linked"
-		else
-			echo "$log_prefix $log_mkdir FAILED to link"
-		fi
-    fi
+    target="$SUPPORTING_FILES_DIRECTORY/$1"
+    link_name="$HOME/$2"
+	create_symlink $target $link_name
 }
 
 download_supporting_file () {
-    source="$1"
-    target="$SUPPORTING_FILES_DIRECTORY/$2"
-	log_prefix=" v [ $source --> $target ] : "
+    url="$1"
+    saved_filename="$SUPPORTING_FILES_DIRECTORY/$2"
+	log_prefix=" v [ $url --> $saved_filename ] : "
 
-    if test -f "$target"; then
+    if [ -f "$saved_filename" ]; then
 		echo "$log_prefix skipped (present)"
     else
-        target_directory=$( dirname ${target} )
-		if [ "x${source:0:19}" == "xhttps://github.com/" ]; then
-			if git clone $source $target &> /dev/null; then
+        saved_filename_directory=$( dirname ${saved_filename} )
+		if [ "x${url:0:19}" == "xhttps://github.com/" ]; then
+			saved_filename_directory=$( dirname ${saved_filename} )
+			if [ ! -d "$saved_filename_directory" ]; then
+				mkdir -pv $saved_filename_directory
+				echo "$log_prefix created parent directory $saved_file_directory"
+			fi
+			if git clone $url $saved_filename &> /dev/null; then
 				echo "$log_prefix cloned git repostitory"
 			else
 				echo "$log_prefix FAILED to clone git repostitory"
 			fi
 		else
-			if curl -fLo $target --create-dirs $source &> /dev/null; then
+			if curl -fLo $saved_filename --create-dirs $url &> /dev/null; then
 				echo "$log_prefix downloaded via curl"
 			else
 				echo "$log_prefix FAILED to download via curl"

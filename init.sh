@@ -42,7 +42,7 @@ if [ "x$1" == "xclean" ]; then
 	rm -fv $HOME/.local/share/nvim/site/autoload/plug.vim
 	rm -fv $HOME/vim/autoload/plug.vim
 	rm -rf $HOME/.oh-my-zsh
-	rm -frv $SUPPORTING_FILES_DIRECTORY
+	rm -frv $SUPPORTING_FILES_DIRECTORY/*
 	if [ "x$2" == "xinstall" ]; then
 		echo ""
 		echo "Installing fresh..."
@@ -61,12 +61,13 @@ if [ "x$INSTALL" == "xTRUE" ]; then
 	# bash
 	install_dotfile bash_profile
 
-	# zsh
-	install_dotfile zshrc
-
 	# oh my zsh
 	download_supporting_file https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh install.sh
 	run_supporting_file install.sh
+	rm $HOME/.zshrc
+
+	# zsh
+	install_dotfile zshrc
 
 	# tmux
 	install_dotfile tmux.conf
