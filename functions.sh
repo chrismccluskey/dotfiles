@@ -1,19 +1,17 @@
 #!/usr/bin/env bash
-BASEDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-DOTFILES_ROOT="$BASEDIR/dot"
 
 # actions: copy, copy (with delete after), symlink
 # flags: --preview
 
 start_message () {
-	echo "-=[ dotfiles [re]init ]=-"
+	echo "-=[ dotfiles ]=-"
 	echo ""
-	echo "Installing dotfiles from $DOCFILES_ROOT to $BASEDIR..."
 	echo ""
 }
 
-install_dotfile_support () {
-	install_dotfile downloaded-dotfiles-support/$1 $2
+run_suporting_file () {
+	chmod +x $SUPPORTING_FILES_DIRECTORY/$1
+	$SUPPORTING_FILES_DIRECTORY/$1
 }
 
 install_dotfile () {
@@ -24,35 +22,66 @@ install_dotfile () {
     else
         target="$HOME/.$1"
     fi
+	log_prefix=" . [ $source --> $target ] : "
 
     if test -f "$target"; then
-        echo "Target for $target already exists"
+		echo "$log_prefix skipped (present)"
     else
         target_directory=$( dirname ${target} )
         if [ -d "$target_directory" ]; then
-            echo "Target directory $target_directory does not exist, creating..."
             mkdir -p $target_directory
+			log_mkdir=" created parent directories and"
         fi
-        ln -s $source $target
-        echo "Linked $source --> $target"
+        if ln -s $source $target; then
+			echo "$log_prefix $log_mkdir linked"
+		else
+			echo "$log_prefix $log_mkdir FAILED to link"
+		fi
     fi
 }
 
-install_from_url() {
-    source="$1"
-    target="$DOTFILES_ROOT/downloaded-dotfiles-support/$2"
+link_supporting_file () {
+    source="$SUPPORTING_FILES_DIRECTORY/$1"
+    target="$HOME/$1"
+	log_prefix=" s [ $source --> $target ] : "
 
     if test -f "$target"; then
-        echo "Target $target for $1 already exists"
+		echo "$log_prefix skipped (present)"
+    else
+        target_directory=$( dirname ${target} )
+        if [ -d "$target_directory" ]; then
+            mkdir -p $target_directory
+			log_mkdir=" created parent directories and"
+        fi
+        if ln -s $source $target; then
+			echo "$log_prefix $log_mkdir linked"
+		else
+			echo "$log_prefix $log_mkdir FAILED to link"
+		fi
+    fi
+}
+
+download_supporting_file () {
+    source="$1"
+    target="$SUPPORTING_FILES_DIRECTORY/$2"
+	log_prefix=" v [ $source --> $target ] : "
+
+    if test -f "$target"; then
+		echo "$log_prefix skipped (present)"
     else
         target_directory=$( dirname ${target} )
 		if [ "x${source:0:19}" == "xhttps://github.com/" ]; then
-			echo "Cloning via git.."
-			git clone $source $target
+			if git clone $source $target &> /dev/null; then
+				echo "$log_prefix cloned git repostitory"
+			else
+				echo "$log_prefix FAILED to clone git repostitory"
+			fi
 		else
-			echo "Downloading via cURL.."
-			curl -fLo $target --create-dirs $source
+			if curl -fLo $target --create-dirs $source &> /dev/null; then
+				echo "$log_prefix downloaded via curl"
+			else
+				echo "$log_prefix FAILED to download via curl"
+			fi
 		fi
-        echo "Downloaded $source --> $target"
     fi
 }
