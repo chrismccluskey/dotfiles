@@ -92,6 +92,7 @@ Plug 'StanAngeloff/php.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug '2072/PHP-Indenting-for-VIm'
 Plug 'rayburgemeestre/phpfolding.vim'
+Plug 'mileszs/ack.vim'
 call plug#end()
 
 " deoplete config
@@ -210,3 +211,13 @@ if (has("termguicolors"))
 	let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 filetype plugin indent on " required
+
+if executable('ag')
+	let g:ackprg = 'ag --vimgrep'
+endif
+
+"Ctrl-P
+let g:ctrlp_map = "<c-p>"
+let g:ctrlp_cmd = "CtrlPMixed"
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_max_files = 30000
