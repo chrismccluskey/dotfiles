@@ -93,6 +93,16 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug '2072/PHP-Indenting-for-VIm'
 Plug 'rayburgemeestre/phpfolding.vim'
 Plug 'mileszs/ack.vim'
+Plug 'jceb/vim-orgmode'
+Plug 'inkarkat/vim-SyntaxRange'
+Plug 'mattn/calendar-vim'
+Plug 'chrisbra/NrrwRgn'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'majutsushi/tagbar'
+Plug 'yegappan/taglist'
+Plug 'dhruvasagar/vim-dotoo'
 call plug#end()
 
 " deoplete config
