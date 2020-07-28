@@ -103,6 +103,14 @@ Plug 'tpope/vim-commentary'
 Plug 'majutsushi/tagbar'
 Plug 'yegappan/taglist'
 Plug 'dhruvasagar/vim-dotoo'
+Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'terryma/vim-expand-region'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-scripts/bufexplorer.zip'
+Plug 'amix/vim-zenroom2'
+Plug 'junegunn/goyo.vim'
+Plug 'dense-analysis/ale'
 call plug#end()
 
 " deoplete config
@@ -204,7 +212,7 @@ autocmd BufEnter * silent! lcd %:p:h " this might be a better approach that work
 
 " A Better NerdTree Setup - https://medium.com/@victormours/a-better-nerdtree-setup-3d3921abc0b9
 autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>f :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen = 1
@@ -212,7 +220,7 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTree
 let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
-let NERDTreeWinSize = 100
+let NERDTreeWinSize = 50
 
 " set Vim-specific sequences for RGB colors
 if (has("termguicolors"))
@@ -231,3 +239,6 @@ let g:ctrlp_map = "<c-p>"
 let g:ctrlp_cmd = "CtrlPMixed"
 let g:ctrlp_working_path_mode = 'ra'
 let g:ctrlp_max_files = 30000
+
+set tags=tags
+nnoremap <silent> <Leader>t :TagbarToggle<CR>
