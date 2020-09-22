@@ -100,6 +100,7 @@ Plug 'chrisbra/NrrwRgn'
 Plug 'tpope/vim-speeddating'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
 Plug 'majutsushi/tagbar'
 Plug 'yegappan/taglist'
 Plug 'dhruvasagar/vim-dotoo'
@@ -111,6 +112,17 @@ Plug 'vim-scripts/bufexplorer.zip'
 Plug 'amix/vim-zenroom2'
 Plug 'junegunn/goyo.vim'
 Plug 'dense-analysis/ale'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'stephpy/vim-php-cs-fixer'
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'phpactor/phpactor' ,  {'do': 'composer install', 'for': 'php'}
+Plug 'ncm2/ncm2'
+Plug 'phpactor/ncm2-phpactor'
+Plug 'adoy/vim-php-refactoring-toolbox'
+Plug 'tobyS/pdv'
 call plug#end()
 
 " deoplete config
@@ -204,7 +216,7 @@ set noet
 set cursorcolumn
 set cursorline
 set number
-set relativenumber
+"set relativenumber
 
 " Change current working directory to directory of open file automatically
 " set autochdir " this may fail with some plugins
@@ -212,7 +224,7 @@ autocmd BufEnter * silent! lcd %:p:h " this might be a better approach that work
 
 " A Better NerdTree Setup - https://medium.com/@victormours/a-better-nerdtree-setup-3d3921abc0b9
 autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 nnoremap <silent> <Leader>n :NERDTreeToggle<CR>
 nnoremap <silent> <Leader>f :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen = 1
@@ -242,3 +254,131 @@ let g:ctrlp_max_files = 30000
 
 set tags=tags
 nnoremap <silent> <Leader>t :TagbarToggle<CR>
+
+" If php-cs-fixer is in $PATH, you don't need to define line below
+" let g:php_cs_fixer_path = "~/php-cs-fixer.phar" " define the path to the php-cs-fixer.phar
+
+" If you use php-cs-fixer version 1.x
+let g:php_cs_fixer_level = "symfony"                   " options: --level (default:symfony)
+let g:php_cs_fixer_config = "default"                  " options: --config
+" If you want to define specific fixers:
+"let g:php_cs_fixer_fixers_list = "linefeed,short_tag" " options: --fixers
+"let g:php_cs_fixer_config_file = '.php_cs'            " options: --config-file
+" End of php-cs-fixer version 1 config params
+
+" If you use php-cs-fixer version 2.x
+let g:php_cs_fixer_rules = "@PSR2"          " options: --rules (default:@PSR2)
+"let g:php_cs_fixer_cache = ".php_cs.cache" " options: --cache-file
+"let g:php_cs_fixer_config_file = '.php_cs' " options: --config
+" End of php-cs-fixer version 2 config params
+
+let g:php_cs_fixer_php_path = "php"               " Path to PHP
+let g:php_cs_fixer_enable_default_mapping = 1     " Enable the mapping by default (<leader>pcd)
+let g:php_cs_fixer_dry_run = 0                    " Call command with dry-run option
+let g:php_cs_fixer_verbose = 0                    " Return the output of command if 1, else an inline information.
+
+" default mapping is <leader>pcd
+" nnoremap <silent><leader>pcd :call PhpCsFixerFixDirectory()<CR>
+" nnoremap <silent><leader>pcf :call PhpCsFixerFixFile()<CR>
+
+" If you want to add fix on save functionality, add this string to the end of ~/.vimrc:
+
+autocmd BufWritePost *.php silent! call PhpCsFixerFixFile()
+
+
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" NOTE: you need to install completion sources to get completions. Check
+" our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+
+" suppress the annoying 'match x of y', 'The only match' and 'Pattern not
+" found' messages
+" set shortmess+=c
+
+" CTRL-C doesn't trigger the InsertLeave autocmd . map to <ESC> instead.
+" inoremap <c-c> <ESC>
+
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+" inoremap <expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+
+" Use <TAB> to select the popup menu:
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" wrap existing omnifunc
+" Note that omnifunc does not run in background and may probably block the
+" editor. If you don't want to be blocked by omnifunc too often, you could
+" add 180ms delay before the omni wrapper:
+"  'on_complete': ['ncm2#on_complete#delay', 180,
+"               \ 'ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+" au User Ncm2Plugin call ncm2#register_source({
+" 		\ 'name' : 'css',
+" 		\ 'priority': 9,
+" 		\ 'subscope_enable': 1,
+" 		\ 'scope': ['css','scss'],
+" 		\ 'mark': 'css',
+" 		\ 'word_pattern': '[\w\-]+',
+" 		\ 'complete_pattern': ':\s*',
+" 		\ 'on_complete': ['ncm2#on_complete#omni', 'csscomplete#CompleteCSS'],
+" 		\ })
+
+"autocmd BufEnter * call ncm2#enable_for_buffer()
+"set completeopt=noinsert,menuone,noselect
+"
+"If you want to disable the default mapping just add this line in your ~/.vimrc file
+"
+"let g:vim_php_refactoring_use_default_mapping = 0
+"
+"If you want to disable the user validation at the getter/setter creation, just add this line in your ~/.vimrc file
+"
+"let g:vim_php_refactoring_auto_validate_sg = 1
+"
+"If you want to disable the user validation at getter only creation, just add this line in your ~/.vimrc file
+"
+"let g:vim_php_refactoring_auto_validate_g = 1
+"
+"If you want to disable the user validation for all rename features, just add this line in your ~/.vimrc file
+"
+"let g:vim_php_refactoring_auto_validate_rename = 1
+"
+"If you want to disable the user validation for the visibility (private/public) add this line in your ~/.vimrc file
+"
+"let g:vim_php_refactoring_auto_validate_visibility = 1
+"
+"To change the default visibility add one/both of those lines in your ~/.vimrc file
+"
+"let g:vim_php_refactoring_default_property_visibility = 'private'
+"let g:vim_php_refactoring_default_method_visibility = 'private'
+"
+"To enable fluent setters add either of these lines to your ~/.vimrc file
+"
+"" default is 0 -- disabled
+"
+"" to enable for all setters
+"let g:vim_php_refactoring_make_setter_fluent = 1
+"
+"" to enable but be prompted when creating the setter
+"let g:vim_php_refactoring_make_setter_fluent = 2
+"
+"Default Mappings
+"
+"nnoremap <unique> <Leader>rlv :call PhpRenameLocalVariable()<CR>
+"nnoremap <unique> <Leader>rcv :call PhpRenameClassVariable()<CR>
+"nnoremap <unique> <Leader>rm :call PhpRenameMethod()<CR>
+"nnoremap <unique> <Leader>eu :call PhpExtractUse()<CR>
+"vnoremap <unique> <Leader>ec :call PhpExtractConst()<CR>
+"nnoremap <unique> <Leader>ep :call PhpExtractClassProperty()<CR>
+"vnoremap <unique> <Leader>em :call PhpExtractMethod()<CR>
+"nnoremap <unique> <Leader>np :call PhpCreateProperty()<CR>
+"nnoremap <unique> <Leader>du :call PhpDetectUnusedUseStatements()<CR>
+"vnoremap <unique> <Leader>== :call PhpAlignAssigns()<CR>
+"nnoremap <unique> <Leader>sg :call PhpCreateSettersAndGetters()<CR>
+"nnoremap <unique> <Leader>cog :call PhpCreateGetters()<CR>
+"nnoremap <unique> <Leader>da :call PhpDocAll()<CR>
+"
